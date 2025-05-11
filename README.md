@@ -37,3 +37,12 @@ Supports **Admin** and **User** roles with booking, rating, and management featu
 ✔️ Mobile-friendly navigation and form layouts
 
 ---
+
+## 🛠️ Setup Instructions
+
+1. **Clone the repository**
+
+```bash
+git clone git@github.com:FahChanikan/ThaiTour-ProjectDB.git
+cd thai-tour
+```
