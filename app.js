@@ -5,6 +5,7 @@ require('dotenv').config();
 
 const app = express();
 
+
 const db = require('./db');
 
 // Routes
@@ -38,7 +39,7 @@ app.get('/', (req, res) => {
   
 
 // Start server
-const PORT = process.env.PORT || 4521;
+const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
   console.log(`Server running at http://localhost:${PORT}`);
 });
