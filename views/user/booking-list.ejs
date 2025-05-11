@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>My Bookings | THAI TOUR</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="icon" type="image/png" href="/uploads/Logo-company.png">
+
+    <style>
+        @media (max-width: 768px) {
+            table thead {
+                display: none;
+            }
+
+            table tbody tr {
+                display: block;
+                margin-bottom: 1rem;
+                border: 1px solid #dee2e6;
+                border-radius: 8px;
+                padding: 0.75rem;
+            }
+
+            table tbody td {
+                display: flex;
+                justify-content: space-between;
+                padding: 0.25rem 0;
+                border: none;
+            }
+
+            table tbody td::before {
+                content: attr(data-label);
+                font-weight: bold;
+                flex-basis: 50%;
+            }
+        }
+    </style>
+</head>
+
+<body class="bg-light">
+
+    <%- include('../partials/navbar-user', { active: 'bookings' }) %>
+
+        <div class="container mt-5">
+            <h3 class="fw-bold mb-4">My Bookings</h3>
+
+            <div class="table-responsive">
+                <table class="table table-bordered align-middle">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Tourist Spot</th>
+                            <th>Guide</th>
+                            <th>Date</th>
+                            <th>People</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% bookings.forEach(b=> { %>
+                            <tr>
+                                <td data-label="Tourist Spot">
+                                    <%= b.spot_name %>
+                                </td>
+                                <td data-label="Guide">
+                                    <%= b.guide_name %>
+                                </td>
+                                <td data-label="Date">
+                                    <%= new Date(b.booking_date).toISOString().slice(0, 10) %>
+                                </td>
+                                <td data-label="People">
+                                    <%= b.number_of_people %>
+                                </td>
+                                <td data-label="Status"><span
+                                        class="badge bg-<%= b.status === 'completed' ? 'success' : b.status === 'cancelled' ? 'danger' : 'secondary' %>">
+                                        <%= b.status %>
+                                    </span></td>
+                            </tr>
+                            <% }) %>
+                    </tbody>
+                </table>
+            </div>
+
+            <a href="/user/dashboard" class="btn btn-secondary mt-3">Back to Dashboard</a>
+        </div>
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

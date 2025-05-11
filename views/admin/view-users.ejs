@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>User Booking Information</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="icon" type="image/png" href="/uploads/Logo-company.png">
+
+</head>
+
+<body class="bg-light">
+
+  <div class="container mt-5">
+    <h2 class="mb-4 fw-bold text-center text-md-start">User Booking Information</h2>
+
+    <!-- 🖥️ Table for md and up -->
+    <div class="d-none d-md-block">
+      <table class="table table-bordered table-hover table-striped align-middle">
+        <thead class="table-primary">
+          <tr>
+            <th>#</th>
+            <th>User Name</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Tourist Spot</th>
+            <th>Guide</th>
+            <th>Booking Date</th>
+            <th>Status</th>
+            <th>Comment</th>
+            <th>Rating</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% bookings.forEach((b, index)=> { %>
+            <tr>
+              <td>
+                <%= index + 1 %>
+              </td>
+              <td>
+                <%= b.user_name || '-' %>
+              </td>
+              <td>
+                <%= b.email %>
+              </td>
+              <td>
+                <%= b.phone %>
+              </td>
+              <td>
+                <%= b.spot_name %>
+              </td>
+              <td>
+                <%= b.guide_name || '-' %>
+              </td>
+              <td>
+                <%= new Date(b.booking_date).toISOString().slice(0, 10) %>
+              </td>
+              <td>
+                <form method="POST" action="/admin/bookings/update-status/<%= b.booking_id %>">
+                  <select name="status" class="form-select form-select-sm" onchange="this.form.submit()">
+                    <option value="booked" <%=b.status==='booked' ? 'selected' : '' %>>booked</option>
+                    <option value="completed" <%=b.status==='completed' ? 'selected' : '' %>>completed</option>
+                    <option value="cancelled" <%=b.status==='cancelled' ? 'selected' : '' %>>cancelled</option>
+                  </select>
+                </form>
+              </td>
+              <td>
+                <%= b.comment || '-' %>
+              </td>
+              <td>
+                <%= typeof b.rating==='number' ? b.rating.toFixed(1) + ' ★' : '-' %>
+              </td>
+            </tr>
+            <% }) %>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- 📱 Card layout for sm and below -->
+    <div class="d-md-none">
+      <% bookings.forEach((b, index)=> { %>
+        <div class="card mb-3 shadow-sm">
+          <div class="card-body">
+            <h6 class="fw-bold mb-2">#<%= index + 1 %> - <%= b.user_name || '-' %>
+            </h6>
+            <p class="mb-1"><strong>Email:</strong>
+              <%= b.email %>
+            </p>
+            <p class="mb-1"><strong>Phone:</strong>
+              <%= b.phone %>
+            </p>
+            <p class="mb-1"><strong>Spot:</strong>
+              <%= b.spot_name %>
+            </p>
+            <p class="mb-1"><strong>Guide:</strong>
+              <%= b.guide_name || '-' %>
+            </p>
+            <p class="mb-1"><strong>Date:</strong>
+              <%= new Date(b.booking_date).toISOString().slice(0, 10) %>
+            </p>
+            <p class="mb-1"><strong>Comment:</strong>
+              <%= b.comment || '-' %>
+            </p>
+            <p class="mb-2"><strong>Rating:</strong>
+              <%= typeof b.rating==='number' ? b.rating.toFixed(1) + ' ★' : '-' %>
+            </p>
+
+            <form method="POST" action="/admin/bookings/update-status/<%= b.booking_id %>">
+              <select name="status" class="form-select form-select-sm" onchange="this.form.submit()">
+                <option value="booked" <%=b.status==='booked' ? 'selected' : '' %>>booked</option>
+                <option value="completed" <%=b.status==='completed' ? 'selected' : '' %>>completed</option>
+                <option value="cancelled" <%=b.status==='cancelled' ? 'selected' : '' %>>cancelled</option>
+              </select>
+            </form>
+          </div>
+        </div>
+        <% }) %>
+    </div>
+
+    <div class="text-center mt-4">
+      <a href="/admin/dashboard" class="btn btn-secondary">Back to Dashboard</a>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

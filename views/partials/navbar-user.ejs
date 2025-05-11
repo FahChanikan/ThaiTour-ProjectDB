@@ -1,0 +1,49 @@
+<style>
+    .navbar-custom {
+      background-color: white;
+      border-bottom: 1px solid #ccc;
+    }
+    .navbar-custom .nav-link {
+      color: black;
+      font-weight: bold;
+      margin-right: 1rem;
+    }
+    .navbar-custom .nav-link.active {
+      color: #007bff;
+      border-bottom: 3px solid #007bff;
+    }
+    .navbar-custom .navbar-brand {
+      font-weight: bold;
+      font-size: 1.5rem;
+      color: black;
+    }
+  </style>
+  
+  <nav class="navbar navbar-expand-md navbar-light bg-white border-bottom shadow-sm px-4">
+    <a class="navbar-brand fw-bold" href="/">THAI TOUR</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navCollapse">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  
+    <div class="collapse navbar-collapse" id="navCollapse">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item">
+          <a class="nav-link <%= active === 'home' ? 'fw-bold text-primary' : '' %>" href="/user/dashboard">HOME</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link <%= active === 'spots' ? 'fw-bold text-primary' : '' %>" href="/user/spots">TOURIST SPOTS</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link <%= active === 'guides' ? 'fw-bold text-primary' : '' %>" href="/user/guides">GUIDES</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link <%= active === 'ratings' ? 'fw-bold text-primary' : '' %>" href="/user/ratings">RATINGS</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-danger" href="/user/logout">LOGOUT</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+  
+  
