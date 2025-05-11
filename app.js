@@ -5,7 +5,6 @@ require('dotenv').config();
 
 const app = express();
 
-// DB
 const db = require('./db');
 
 // Routes
@@ -30,10 +29,9 @@ app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
 // Route Split
-app.use('/admin', adminRoutes);  // http://localhost:4000/admin/login
-app.use('/user', userRoutes);    // http://localhost:4000/user/login
+app.use('/admin', adminRoutes);  
+app.use('/user', userRoutes);    
 
-// ✅ Default homepage: ให้เลือกว่าจะ login ฝั่งไหน
 app.get('/', (req, res) => {
     res.render('home');
   });

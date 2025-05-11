@@ -2,12 +2,12 @@ const express = require('express');
 const router = express.Router();
 const db = require('../db');
 
-// ✅ Login Page
+// Login Page
 router.get('/login', (req, res) => {
   res.render('user/login-user', { error: null });
 });
 
-// ✅ Handle Login
+// Handle Login
 router.post('/login', (req, res) => {
   const { email, password } = req.body;
 
@@ -23,13 +23,13 @@ router.post('/login', (req, res) => {
   });
 });
 
-// ✅ Dashboard
+// Dashboard
 router.get('/dashboard', (req, res) => {
   if (!req.session.user) return res.redirect('/user/login');
   res.render('user/dashboard', { user: req.session.user });
 });
 
-// ✅ Tourist Spots
+// Tourist Spots
 router.get('/spots', (req, res) => {
   db.query('SELECT * FROM TouristSpots', (err, spots) => {
     if (err) throw err;
@@ -37,7 +37,7 @@ router.get('/spots', (req, res) => {
   });
 });
 
-// ✅ Booking Form
+// Booking Form
 router.get('/book/:spot_id', (req, res) => {
   const spot_id = req.params.spot_id;
 
@@ -56,7 +56,7 @@ router.get('/book/:spot_id', (req, res) => {
   });
 });
 
-// ✅ Submit Booking
+// Submit Booking
 router.post('/book', (req, res) => {
   const { spot_id, guide_id, booking_date, number_of_people } = req.body;
   const user_id = req.session.user?.user_id;
@@ -73,7 +73,7 @@ router.post('/book', (req, res) => {
   });
 });
 
-// ✅ View My Bookings
+// View My Bookings
 router.get('/bookings', (req, res) => {
   const userId = req.session.user?.user_id;
   if (!userId) return res.redirect('/user/login');
@@ -92,7 +92,7 @@ router.get('/bookings', (req, res) => {
   });
 });
 
-// ✅ View All Guides with avg rating
+// View All Guides with avg rating
 router.get('/guides', (req, res) => {
   const sql = `
     SELECT g.*, ROUND(AVG(r.rating), 1) AS avg_rating
@@ -108,7 +108,7 @@ router.get('/guides', (req, res) => {
 });
 
 
-// ✅ Show all guides regardless of booking
+// Show all guides regardless of booking
 router.get('/ratings', (req, res) => {
   db.query('SELECT guide_id, full_name FROM Guides', (err, guides) => {
     if (err) throw err;
@@ -117,7 +117,7 @@ router.get('/ratings', (req, res) => {
 });
 
 
-// ✅ Submit Rating
+// Submit Rating
 router.post('/ratings/add', (req, res) => {
   const { guide_id, rating, comment } = req.body;
   const user_id = req.session.user?.user_id;
@@ -137,12 +137,12 @@ router.post('/ratings/add', (req, res) => {
     res.redirect('/user/ratings');
   });
 });
-// ✅ GET: Register Page
+// GET: Register Page
 router.get('/register', (req, res) => {
   res.render('user/register', { error: null });
 });
 
-// ✅ POST: Register Submission
+// POST: Register Submission
 // POST: Register Submission
 router.post('/register', (req, res) => {
   const { full_name, email, password, phone } = req.body;
@@ -163,7 +163,7 @@ router.post('/register', (req, res) => {
 });
 
 
-// ✅ Logout
+// Logout
 router.get('/logout', (req, res) => {
   req.session.destroy();
   res.redirect('/user/login');

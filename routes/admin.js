@@ -5,7 +5,7 @@ const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
 
-// ✅ Set up multer for image upload
+// Set up multer for image upload
 const storage = multer.diskStorage({
   destination: (req, file, cb) => cb(null, 'public/uploads/'),
   filename: (req, file, cb) => cb(null, Date.now() + '-' + file.originalname)
@@ -14,12 +14,12 @@ const upload = multer({ storage });
 
 /* ----------------- AUTH ------------------ */
 
-// ✅ Admin Login Page
+// Admin Login Page
 router.get('/login', (req, res) => {
   res.render('admin/login', { error: null });
 });
 
-// ✅ Admin Login
+//  Admin Login
 router.post('/login', (req, res) => {
   const { email, password } = req.body;
   db.query('SELECT * FROM Admins WHERE email = ? AND password = ?', [email, password], (err, results) => {
@@ -32,7 +32,7 @@ router.post('/login', (req, res) => {
   });
 });
 
-// ✅ Logout
+// Logout
 router.get('/logout', (req, res) => {
   req.session.destroy();
   res.redirect('/admin/login');
@@ -47,7 +47,7 @@ router.get('/dashboard', (req, res) => {
 
 /* ----------------- TOURIST SPOTS ------------------ */
 
-// ✅ Manage Tourist Spots Page
+// Manage Tourist Spots Page
 router.get('/spots', (req, res) => {
   db.query('SELECT * FROM TouristSpots', (err, spots) => {
     if (err) throw err;
@@ -55,7 +55,7 @@ router.get('/spots', (req, res) => {
   });
 });
 
-// ✅ Add Tourist Spot with image
+//  Add Tourist Spot with image
 router.post('/spots/add', upload.single('image'), (req, res) => {
   const { spot_name, location, date, price } = req.body;
   const image_path = req.file ? req.file.filename : null;
@@ -70,7 +70,7 @@ router.post('/spots/add', upload.single('image'), (req, res) => {
   });
 });
 
-// ✅ Delete Spot (with image deletion)
+// Delete Spot (with image deletion)
 router.post('/spots/delete/:id', (req, res) => {
   const spotId = req.params.id;
 
@@ -94,7 +94,7 @@ router.post('/spots/delete/:id', (req, res) => {
 
 /* ----------------- GUIDES ------------------ */
 
-// ✅ Manage Guides Page
+// Manage Guides Page
 router.get('/guides', (req, res) => {
   db.query('SELECT * FROM Guides', (err, guides) => {
     if (err) throw err;
@@ -102,7 +102,7 @@ router.get('/guides', (req, res) => {
   });
 });
 
-// ✅ Add Guide with optional image
+// Add Guide with optional image
 router.post('/guides/add', upload.single('image'), (req, res) => {
   const { full_name, phone, language_spoken } = req.body;
   const image_path = req.file ? req.file.filename : null;
@@ -117,7 +117,7 @@ router.post('/guides/add', upload.single('image'), (req, res) => {
   });
 });
 
-// ✅ Delete Guide
+// Delete Guide
 router.post('/guides/delete/:id', (req, res) => {
   const guideId = req.params.id;
 
@@ -142,7 +142,7 @@ router.post('/guides/delete/:id', (req, res) => {
 
 /* ----------------- USERS ------------------ */
 
-// ✅ View User Bookings
+// View User Bookings
 // /routes/admin.js
 router.get('/users', (req, res) => {
   const query = `
