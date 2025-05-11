@@ -44,5 +44,5 @@ Supports **Admin** and **User** roles with booking, rating, and management featu
 
 ```bash
 git clone git@github.com:FahChanikan/ThaiTour-ProjectDB.git
-cd thai-tour
+cd ThaiTour
 ```
